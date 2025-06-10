@@ -76,6 +76,12 @@ def run_session(puzzles: list[tuple[chess.Board, chess.Move]], n:int) -> None:
     print("=" * 40)
     print(f"Session complete: {correct}/{i} correct " f"({correct/i: .0%})")
     
+    
+def c(text, color):
+    COLORS = {"white": 97, "cyan": 96, "green": 92, "red": 91, "yellow": 93}
+    return f"\033[{COLORS[color]}m{text}\033[0m"
+    
+    
 def main() -> None:
     parser = argparse.ArgumentParser(description="CLI chess tactics trainer. Made with love in Python without any frameworks")
 
