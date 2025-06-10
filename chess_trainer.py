@@ -7,17 +7,27 @@ import argparse
 import sys
 
 def show_board(board: chess.Board) -> None:
-    piece_colors = {
-        "♔♕♖♗♘♙": "white",
-        "♚♛♜♝♞♟": "cyan"
-    }
-    raw = board.unicode(borders=True)
-    for chars, col in piece_colors.items():
-        for ch in chars:
-            raw = raw.replace(ch, c(ch, col))
-    print(raw)
-    print(c("White to move", "green")) if board.turn else c("Black to move", "yellow")
-    print()
+    WHITE = "♔♕♖♗♘♙"
+    BLACK = "♚♛♜♝♞♟"
+    
+    raw_lines = board.unicode(borders=True).splitlines()
+    pretty_lines = []
+
+    for line in raw_lines:
+        new = ""
+        for ch in line:
+            if ch in WHITE:
+                new += c(ch, "white") + " "
+            elif ch in BLACK:
+                new += c(ch, "cyan") + " "
+            else:
+                new += ch
+        pretty_lines.append(new.rstrip())
+        
+    print("\n".join(pretty_lines))
+    side_text = c("White to move", "green") if board.turn else c("Black to move", "yellow")
+    print(side_text)
+
 
 def load_lichess_csv(path: str| pathlib.Path, max_rows: int| None = None, min_rating: int | None = None, max_rating: int | None = None, theme: str | None = None) -> list[tuple[chess.Board, chess.Move]]:
     puzzles: list[tuple[chess.Board, chess.Move]] = []
