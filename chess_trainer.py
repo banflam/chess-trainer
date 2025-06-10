@@ -3,7 +3,8 @@ import pathlib
 import random
 import chess
 import time
-import argparse, sys
+import argparse
+import sys
 
 def show_board(board: chess.Board) -> None:
     print(board.unicode(borders = True))
@@ -103,5 +104,5 @@ def main() -> None:
         
     run_session(puzzles, args.puzzles)
     
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
