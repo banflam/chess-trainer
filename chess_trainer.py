@@ -81,7 +81,6 @@ def main() -> None:
 
     parser.add_argument("--csv", default="puzzles_subset.csv", help = "Path to the Lichess CSV (edited)")
     parser.add_argument("--puzzles", type=int, default=10, help="Number of puzzles to attempt")
-    parser.add_argument("--puzzles", type=int, default=10, help="Number of puzzles to attempt")
     parser.add_argument("--min-rating", type=int, help="Skip puzzles below this rating")
     parser.add_argument("--max-rating", type=int, help="Skip puzzles above this rating")
     parser.add_argument("--theme", type=int, help="Filter by Lichess theme (fork, matein2, etc.)")
