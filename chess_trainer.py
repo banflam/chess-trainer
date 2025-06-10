@@ -2,6 +2,7 @@ import csv
 import pathlib
 import random
 import chess
+import time
 
 def show_board(board: chess.Board) -> None:
     print(board.unicode(borders = True))
@@ -48,3 +49,27 @@ def prompt_move(board: chess.Board) -> chess.Move | None:
         print("Illegal move!! Try again\n")
         return prompt_move(board)
     return move
+
+def run_session(puzzles: list[tuple[chess.Board, chess.Move]], n:int) -> None:
+
+    correct = 0
+    for i in range(1, n + 1):
+        board, best = random.choice(puzzles)
+        print("\n" + "-" * 40)
+        print(f"Puzzle {i}/{n}")
+        show_board(board)
+        
+        move = prompt_move(board)
+        if move is None:
+            break
+        
+        if move == best:
+            print("Correct!!!!")
+            correct += 1
+        else:
+            print(f"WRONG -- the best move was {best.uci()}\n")
+            
+        time.sleep(0.60)
+        
+    print("=" * 40)
+    print(f"Session complete: {correct}/{i} correct " f"({correct/i: .0%})")
