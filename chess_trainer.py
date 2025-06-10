@@ -3,6 +3,7 @@ import pathlib
 import random
 import chess
 import time
+import argparse, sys
 
 def show_board(board: chess.Board) -> None:
     print(board.unicode(borders = True))
@@ -73,3 +74,34 @@ def run_session(puzzles: list[tuple[chess.Board, chess.Move]], n:int) -> None:
         
     print("=" * 40)
     print(f"Session complete: {correct}/{i} correct " f"({correct/i: .0%})")
+    
+def main() -> None:
+    parser = argparse.ArgumentParser(description="CLI chess tactics trainer. Made with love in Python without any frameworks")
+
+    parser.add_argument("--csv", default="puzzles_subset.csv", help = "Path to the Lichess CSV (edited)")
+    parser.add_argument("--puzzles", type=int, default=10, help="Number of puzzles to attempt")
+    parser.add_argument("--puzzles", type=int, default=10, help="Number of puzzles to attempt")
+    parser.add_argument("--min-rating", type=int, help="Skip puzzles below this rating")
+    parser.add_argument("--max-rating", type=int, help="Skip puzzles above this rating")
+    parser.add_argument("--theme", type=int, help="Filter by Lichess theme (fork, matein2, etc.)")
+
+    args = parser.parse_args()
+    
+    try:
+        puzzles = load_lichess_csv(
+            args.csv,
+            max_rows = args.puzzles * 5, # load more for randomness
+            min_rating = args.min_rating,
+            max_rating = args.max_rating,
+            theme = args.theme
+        )
+    except FileNotFoundError:
+        sys.exit("CSV not found")
+        
+    if not puzzles:
+        sys.exit("No puzzles match your filters")    
+        
+    run_session(puzzles, args.puzzles)
+    
+    if __name__ == "__main__":
+        main()
