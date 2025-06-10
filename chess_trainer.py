@@ -31,3 +31,20 @@ def load_lichess_csv(path: str| pathlib.Path, max_rows: int| None = None, min_ra
                 break
     return puzzles
 
+def prompt_move(board: chess.Board) -> chess.Move | None:
+
+    raw = input("Your move (or 'q' to quit):").strip()
+    if raw.lower() in {"q"}:
+        return None
+    
+    try:
+        move = chess.Move.from_uci(raw)
+    except ValueError:
+        try:
+            move = board.parse_san(raw)
+        except ValueError:
+            move = None
+    if move is None or move not in board.legal_moves:
+        print("Illegal move!! Try again\n")
+        return prompt_move(board)
+    return move
