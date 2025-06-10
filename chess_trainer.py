@@ -37,7 +37,9 @@ def load_lichess_csv(path: str| pathlib.Path, max_rows: int| None = None, min_ra
             board.push_uci(moves[0])
             best_move = chess.Move.from_uci(moves[1])
             
-            puzzles.append((board, best_move))
+            puzzles.append(
+                (board, best_move, int(row["Rating"]), row["Themes"].split())
+                )
             
             if max_rows and len(puzzles) >= max_rows:
                 break
@@ -65,9 +67,13 @@ def run_session(puzzles: list[tuple[chess.Board, chess.Move]], n:int) -> None:
 
     correct = 0
     for i in range(1, n + 1):
-        board, best = random.choice(puzzles)
+        board, best, rating, themes = random.choice(puzzles)
         print("\n" + "-" * 40)
         print(f"Puzzle {i}/{n}")
+        
+        header = (f"Puzzle {i}/{n} | {rating} |"
+                  f"{', '.join(themes[:3])}")
+        print(header)
         show_board(board)
         
         move = prompt_move(board)
