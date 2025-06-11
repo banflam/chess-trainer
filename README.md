@@ -33,3 +33,15 @@ pip install -r requirements.txt
 
 # 3 – train!
 python chess_trainer.py --puzzles 20
+
+## Example CLI flags
+
+python chess_trainer.py \
+       --puzzles 30 \
+       --min-rating 1500 \
+       --max-rating 2100 \
+       --theme fork
+
+# Origins of the puzzles
+
+1,000 puzzles randomly sampled from the CC-0 Lichess puzzle database
