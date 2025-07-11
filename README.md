@@ -1,10 +1,10 @@
 # Chess Tactics Trainer -- a pure Python CLI
 
-Small, framework-free program so you can practice chess puzzles from the comfort of the command line.
+Practice chess puzzles from the comfort of the command line.
 
-Written from scratch in 129 lines of Python and a few lightweight dependencies.
+Small, lightweight program with no major external dependencies.
 
-Built without the use of any frameworks as part of my second Recurse Center application.
+Written from scratch in 129 lines of Python and without any framework, just for the challenge.
 
 ---
 
